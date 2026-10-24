@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7ef">
+  <meta name="description" content="Mộc Nhiên mang đến thực phẩm tươi ngon, lành sạch và có nguồn gốc rõ ràng cho bữa cơm nhà bạn.">
+  <title>Mộc Nhiên — Ăn lành, sống xanh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest: #244b37;
+      --green: #3f6b4a;
+      --lime: #dce8a7;
+      --cream: #f8f7ef;
+      --paper: #fffef9;
+      --ink: #252a23;
+      --muted: #73766d;
+      --line: #e9e8de;
+      --orange: #e98c53;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    img { display: block; width: 100%; object-fit: cover; }
+    .container { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+
+    .announcement {
+      padding: 10px 20px;
+      color: #fff;
+      background: var(--forest);
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+    .announcement span { color: var(--lime); font-weight: 700; }
+    .header {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      background: rgba(248, 247, 239, .95);
+      border-bottom: 1px solid rgba(36, 75, 55, .08);
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--forest);
+      background: var(--lime);
+    }
+    .brand-mark svg { width: 22px; height: 22px; }
+    .brand-name { font-family: var(--serif); font-size: 22px; font-weight: 700; letter-spacing: -.04em; }
+    .brand-name small { display: block; margin-top: -4px; color: var(--muted); font: 500 9px var(--sans); letter-spacing: .19em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 34px; color: #555a51; font-size: 13px; }
+    .nav-links a { transition: color .2s; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .icon-button {
+      position: relative;
+      display: grid;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--forest);
+      background: transparent;
+    }
+    .icon-button svg { width: 18px; height: 18px; }
+    .cart-count {
+      position: absolute;
+      top: -3px;
+      right: -4px;
+      display: grid;
+      width: 17px;
+      height: 17px;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: var(--orange);
+      font-size: 10px;
+    }
+    .menu-toggle { display: none; }
+
+    .hero { padding: 44px 0 76px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      align-items: center;
+      gap: 58px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 23px; height: 1px; background: var(--orange); content: ""; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 520px;
+      margin: 20px 0 18px;
+      font: 600 clamp(46px, 5.4vw, 70px)/1.08 var(--serif);
+      letter-spacing: -.045em;
+    }
+    h1 em { color: var(--green); font-weight: 500; }
+    .hero-copy { max-width: 445px; color: var(--muted); font-size: 15px; line-height: 1.8; }
+    .hero-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; margin-top: 28px; }
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 21px;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 700;
+      transition: transform .2s, background .2s;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: white; background: var(--forest); }
+    .button-primary:hover { background: #183b2a; }
+    .button-light { border-color: var(--line); background: transparent; }
+    .button svg { width: 15px; height: 15px; }
+    .social-proof { display: flex; align-items: center; gap: 12px; margin-top: 34px; }
+    .avatar-stack { display: flex; padding-left: 4px; }
+    .avatar-stack img {
+      width: 31px;
+      height: 31px;
+      margin-left: -5px;
+      border: 2px solid var(--cream);
+      border-radius: 50%;
+    }
+    .proof-text { color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .proof-text strong { display: block; color: var(--ink); font-size: 12px; }
+    .hero-visual { position: relative; min-height: 490px; }
+    .hero-photo {
+      position: absolute;
+      inset: 0 35px 0 20px;
+      overflow: hidden;
+      border-radius: 48% 48% 4px 4px;
+      background: #d4d7bf;
+    }
+    .hero-photo img { height: 100%; }
+    .hero-photo::after { position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, rgba(20, 35, 25, .35)); content: ""; }
+    .photo-caption { position: absolute; z-index: 1; right: 65px; bottom: 25px; left: 48px; color: white; }
+    .photo-caption span { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+    .photo-caption strong { display: block; margin-top: 4px; font: 500 24px var(--serif); }
+    .floating-note {
+      position: absolute;
+      z-index: 2;
+      top: 76px;
+      right: 0;
+      display: flex;
+      width: 122px;
+      height: 122px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 7px solid var(--cream);
+      border-radius: 50%;
+      color: var(--forest);
+      background: var(--lime);
+      text-align: center;
+      transform: rotate(8deg);
+    }
+    .floating-note strong { font: 700 27px var(--serif); }
+    .floating-note span { max-width: 80px; font-size: 9px; line-height: 1.35; text-transform: uppercase; }
+    .delivery-card {
+      position: absolute;
+      z-index: 2;
+      right: 0;
+      bottom: 63px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 13px 16px;
+      border: 1px solid rgba(36, 75, 55, .08);
+      border-radius: 4px;
+      background: var(--paper);
+      box-shadow: 0 12px 35px rgba(37, 42, 35, .1);
+    }
+    .delivery-icon { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; color: var(--green); background: #edf2df; }
+    .delivery-icon svg { width: 18px; }
+    .delivery-card strong { display: block; font-size: 11px; }
+    .delivery-card small { color: var(--muted); font-size: 10px; }
+
+    .trust-bar { padding: 22px 0; border-block: 1px solid var(--line); background: rgba(255, 254, 249, .55); }
+    .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .trust-item { display: flex; align-items: center; justify-content: center; gap: 11px; color: var(--forest); }
+    .trust-item svg { width: 22px; height: 22px; flex-shrink: 0; stroke-width: 1.5; }
+    .trust-item span { color: var(--muted); font-size: 11px; }
+    .trust-item strong { display: block; margin-bottom: 3px; color: var(--ink); font-size: 12px; }
+
+    .section { padding: 87px 0; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+    .section-heading h2, .story-copy h2, .newsletter h2 {
+      margin: 11px 0 0;
+      font: 600 clamp(34px, 4vw, 45px)/1.15 var(--serif);
+      letter-spacing: -.035em;
+    }
+    .section-heading p { max-width: 330px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .text-link { display: inline-flex; align-items: center; gap: 7px; color: var(--green); font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .text-link svg { width: 15px; }
+
+    .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 17px; }
+    .category-card { position: relative; min-height: 300px; overflow: hidden; border-radius: 4px; background: #ddd; }
+    .category-card img { position: absolute; inset: 0; height: 100%; transition: transform .5s; }
+    .category-card:hover img { transform: scale(1.06); }
+    .category-card::after { position: absolute; inset: 40% 0 0; background: linear-gradient(transparent, rgba(21, 33, 25, .75)); content: ""; }
+    .category-info { position: absolute; z-index: 1; right: 18px; bottom: 18px; left: 18px; color: white; }
+    .category-info span { display: block; margin-bottom: 5px; color: #e2e8d3; font-size: 10px; }
+    .category-info strong { font: 500 21px var(--serif); }
+    .category-arrow { position: absolute; top: 12px; right: 12px; z-index: 1; display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; color: var(--forest); background: var(--paper); }
+    .category-arrow svg { width: 15px; }
+
+    .products-section { background: #f0f0e6; }
+    .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 17px; }
+    .product-card { overflow: hidden; border: 1px solid #e8e8dc; border-radius: 4px; background: var(--paper); }
+    .product-image { position: relative; height: 205px; overflow: hidden; background: #e9eadf; }
+    .product-open { display: block; width: 100%; height: 100%; padding: 0; overflow: hidden; border: 0; background: transparent; cursor: pointer; }
+    .product-open img { height: 100%; transition: transform .4s; }
+    .product-card:hover .product-open img { transform: scale(1.05); }
+    .product-tag { position: absolute; top: 12px; left: 12px; padding: 6px 9px; border-radius: 2px; color: var(--forest); background: var(--lime); font-size: 9px; font-weight: 700; }
+    .product-details { padding: 15px; }
+    .product-kind { color: var(--muted); font-size: 10px; }
+    .product-name { display: block; margin: 5px 0 10px; padding: 0; border: 0; color: var(--ink); background: transparent; font: 500 18px var(--serif); text-align: left; cursor: pointer; }
+    .product-name:hover { color: var(--green); }
+    .product-bottom { display: flex; align-items: center; justify-content: space-between; }
+    .price { color: var(--forest); font-size: 13px; font-weight: 700; }
+    .price small { color: var(--muted); font-size: 10px; font-weight: 400; }
+    .add-button { display: grid; width: 32px; height: 32px; place-items: center; border: 1px solid #dfe3d5; border-radius: 50%; color: var(--forest); background: transparent; transition: all .2s; }
+    .add-button:hover { border-color: var(--forest); color: white; background: var(--forest); }
+    .add-button svg { width: 15px; height: 15px; }
+    .center-action { margin-top: 31px; text-align: center; }
+
+    .product-dialog { width: min(760px, calc(100% - 32px)); max-width: none; max-height: min(90vh, 720px); padding: 0; overflow: auto; border: 0; border-radius: 6px; color: var(--ink); background: var(--paper); box-shadow: 0 24px 80px rgba(14, 30, 19, .28); }
+    .product-dialog::backdrop { background: rgba(20, 35, 25, .62); backdrop-filter: blur(3px); }
+    .dialog-content { position: relative; display: grid; grid-template-columns: 1fr 1fr; min-height: 400px; }
+    .dialog-image { min-height: 400px; background: #e9eadf; }
+    .dialog-image img { height: 100%; }
+    .dialog-info { display: flex; justify-content: center; flex-direction: column; padding: 44px 34px; }
+    .dialog-close { position: absolute; top: 13px; right: 13px; z-index: 1; display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--forest); background: var(--paper); font-size: 20px; line-height: 1; }
+    .dialog-close:hover { color: white; background: var(--forest); }
+    .dialog-info h2 { margin: 9px 0 10px; font: 600 32px/1.15 var(--serif); letter-spacing: -.03em; }
+    .dialog-price { margin-bottom: 18px; color: var(--forest); font-size: 17px; font-weight: 700; }
+    .dialog-price small { color: var(--muted); font-size: 12px; font-weight: 400; }
+    .dialog-description { margin-bottom: 21px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .dialog-origin { margin: 0 0 24px; padding-top: 17px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .dialog-origin strong { color: var(--ink); }
+    .dialog-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+    .dialog-actions .button { flex: 1; }
+    .footer-contact a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .footer-contact a:hover { color: var(--lime); }
+    @media (max-width: 600px) {
+      .product-dialog { max-height: 88vh; }
+      .dialog-content { grid-template-columns: 1fr; }
+      .dialog-image { min-height: 0; height: 240px; }
+      .dialog-info { padding: 25px 22px; }
+      .dialog-info h2 { font-size: 27px; }
+      .dialog-description { margin-bottom: 14px; }
+      .dialog-origin { margin-bottom: 18px; }
+    }
+
+    .story-section { padding: 85px 0; }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 75px; }
+    .story-image { position: relative; height: 440px; }
+    .story-image img { width: 87%; height: 100%; border-radius: 4px; }
+    .story-image::before { position: absolute; right: 0; bottom: -20px; width: 54%; height: 70%; border: 1px solid #cfd8b6; content: ""; }
+    .story-stamp { position: absolute; right: 0; bottom: 31px; display: grid; width: 104px; height: 104px; place-items: center; border: 7px solid var(--cream); border-radius: 50%; color: var(--forest); background: var(--lime); text-align: center; transform: rotate(-9deg); }
+    .story-stamp span { font: 600 15px/1.15 var(--serif); }
+    .story-copy p { margin: 19px 0 24px; color: var(--muted); font-size: 13px; line-height: 1.85; }
+    .story-points { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; margin-bottom: 27px; }
+    .story-point { display: flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 600; }
+    .check { display: grid; width: 22px; height: 22px; flex-shrink: 0; place-items: center; border-radius: 50%; color: var(--green); background: #e7ecd9; font-size: 12px; }
+
+    .quote-section { padding: 64px 0; background: var(--forest); color: white; text-align: center; }
+    .quote-mark { color: var(--lime); font: 64px/.8 var(--serif); }
+    blockquote { max-width: 735px; margin: 17px auto 20px; font: 500 clamp(23px, 3.2vw, 34px)/1.45 var(--serif); }
+    .quote-by { color: #c4cfbb; font-size: 11px; }
+    .quote-by strong { color: white; }
+    .stars { margin-bottom: 12px; color: #e2c980; font-size: 13px; letter-spacing: .2em; }
+
+    .newsletter { display: flex; align-items: center; justify-content: space-between; gap: 36px; padding: 38px 44px; border: 1px solid var(--line); background: var(--paper); }
+    .newsletter h2 { font-size: 31px; }
+    .newsletter p { margin: 9px 0 0; color: var(--muted); font-size: 12px; }
+    .newsletter-form { display: flex; width: min(410px, 100%); gap: 8px; }
+    .newsletter-form input { min-width: 0; flex: 1; padding: 0 14px; border: 1px solid var(--line); border-radius: 2px; outline: 0; background: var(--cream); font-size: 12px; }
+    .newsletter-form input:focus { border-color: var(--green); }
+    .form-message { min-height: 16px; margin-top: 8px; color: var(--green); font-size: 11px; }
+
+    .footer { padding: 55px 0 22px; color: #d5ddd1; background: #1d3d2d; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; }
+    .footer .brand-name { color: white; }
+    .footer .brand-name small { color: #b4c2b1; }
+    .footer-about { max-width: 280px; margin: 16px 0; color: #b4c2b1; font-size: 11px; line-height: 1.8; }
+    .footer h3 { margin-bottom: 16px; color: white; font-size: 12px; }
+    .footer-links { display: grid; gap: 11px; color: #b4c2b1; font-size: 11px; }
+    .footer-links a:hover { color: white; }
+    .footer-contact { color: #b4c2b1; font-size: 11px; line-height: 1.9; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 19px; border-top: 1px solid rgba(255,255,255,.14); color: #9eaf9f; font-size: 10px; }
+
+    @media (max-width: 900px) {
+      .nav-links { gap: 19px; }
+      .hero-grid { gap: 28px; }
+      .hero-visual { min-height: 420px; }
+      .category-grid, .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .category-card { min-height: 280px; }
+      .story-grid { gap: 42px; }
+      .story-image { height: 390px; }
+      .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; }
+      .footer-grid > :last-child { grid-column: 2; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 36px, 520px); }
+      .announcement { font-size: 10px; }
+      .nav { min-height: 66px; }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        display: none;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 18px 16px;
+        border-bottom: 1px solid var(--line);
+        background: var(--cream);
+      }
+      .nav-links.open { display: flex; flex-direction: column; }
+      .nav-links a { padding: 12px 3px; border-bottom: 1px solid var(--line); }
+      .menu-toggle { display: grid; }
+      .nav-actions { gap: 8px; }
+      .hero { padding: 39px 0 48px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+      h1 { max-width: 460px; font-size: clamp(45px, 12vw, 62px); }
+      .hero-copy { font-size: 14px; }
+      .hero-visual { min-height: 390px; }
+      .hero-photo { right: 25px; left: 10px; }
+      .floating-note { top: 48px; right: -2px; width: 106px; height: 106px; }
+      .floating-note strong { font-size: 23px; }
+      .delivery-card { right: -1px; bottom: 40px; }
+      .photo-caption { left: 34px; }
+      .trust-grid { grid-template-columns: 1fr 1fr; gap: 22px 10px; }
+      .trust-item { justify-content: flex-start; }
+      .trust-item span { font-size: 10px; }
+      .section { padding: 63px 0; }
+      .section-heading { align-items: flex-start; flex-direction: column; margin-bottom: 24px; }
+      .section-heading p { max-width: 390px; }
+      .category-grid, .product-grid { gap: 11px; }
+      .category-card { min-height: 220px; }
+      .category-info { right: 12px; bottom: 13px; left: 12px; }
+      .category-info strong { font-size: 17px; }
+      .category-info span { font-size: 9px; }
+      .category-arrow { top: 8px; right: 8px; width: 30px; height: 30px; }
+      .product-image { height: 155px; }
+      .product-details { padding: 11px; }
+      .product-name { font-size: 16px; }
+      .story-section { padding: 64px 0; }
+      .story-grid { grid-template-columns: 1fr; gap: 40px; }
+      .story-image { height: 340px; }
+      .story-copy p { font-size: 12px; }
+      .quote-section { padding: 52px 18px; }
+      .newsletter { align-items: flex-start; flex-direction: column; gap: 23px; padding: 27px 22px; }
+      .newsletter-form { height: 45px; }
+      .newsletter h2 { font-size: 28px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
+      .footer-grid > :last-child { grid-column: auto; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 8px; }
+    }
+    @media (max-width: 380px) {
+      .container { width: calc(100% - 28px); }
+      .brand-name { font-size: 19px; }
+      .icon-button { width: 36px; height: 36px; }
+      .category-card { min-height: 190px; }
+      .product-image { height: 135px; }
+      .product-kind { font-size: 9px; }
+      .price { font-size: 11px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">Giao hàng miễn phí cho đơn từ <span>399.000đ</span> · Tươi ngon mỗi ngày, giao tận cửa</div>
+
+  <header class="header">
+    <nav class="nav container" aria-label="Điều hướng chính">
+      <a class="brand" href="#trang-chu" aria-label="Mộc Nhiên - Trang chủ">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4c-7 0-12 2.5-12 8a5 5 0 0 0 5 5c5.5 0 7-6 7-13Z"/><path d="M4 21c1-5 4.5-9 11-12"/></svg>
+        </span>
+        <span class="brand-name">Mộc Nhiên<small>Ăn lành · Sống xanh</small></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#trang-chu">Trang chủ</a>
+        <a href="#danh-muc">Danh mục</a>
+        <a href="#san-pham">Sản phẩm</a>
+        <a href="#ve-chung-toi">Về Mộc Nhiên</a>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-button" type="button" aria-label="Giỏ hàng">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.5 11h10L20 8H6"/><circle cx="9" cy="19" r="1"/><circle cx="17" cy="19" r="1"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="icon-button menu-toggle" id="menuToggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="navLinks">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="trang-chu">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="eyebrow">Từ vườn lành đến bàn ăn</span>
+          <h1>Mỗi bữa ăn,<br>một chút <em>an lành.</em></h1>
+          <p class="hero-copy">Thực phẩm tươi ngon được tuyển chọn từ những nông trại tử tế. Để bữa cơm mỗi ngày thêm trọn vị và nhẹ lòng hơn.</p>
+          <div class="hero-buttons">
+            <a class="button button-primary" href="#san-pham">Khám phá sản phẩm
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </a>
+            <a class="button button-light" href="#ve-chung-toi">Câu chuyện của chúng tôi</a>
+          </div>
+          <div class="social-proof">
+            <div class="avatar-stack" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=80&h=80&q=80" alt="">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&h=80&q=80" alt="">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80&q=80" alt="">
+            </div>
+            <div class="proof-text"><strong>Hơn 2.000 gia đình tin chọn</strong>Đánh giá 4.9/5 từ khách hàng</div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-photo">
+            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=85" alt="Rau củ quả tươi xanh được bày trên bàn">
+            <div class="photo-caption"><span>Tươi từ nông trại</span><strong>Trọn vị thiên nhiên</strong></div>
+          </div>
+          <div class="floating-note"><strong>100%</strong><span>Tươi ngon mỗi ngày</span></div>
+          <div class="delivery-card">
+            <span class="delivery-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v11H3zM14 11h4l3 3v4h-7z"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="17.5" cy="18" r="1.5"/></svg></span>
+            <span><strong>Giao nhanh trong ngày</strong><small>Giữ trọn độ tươi ngon</small></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-bar" aria-label="Cam kết của Mộc Nhiên">
+      <div class="container trust-grid">
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4c-7 0-12 2.5-12 8a5 5 0 0 0 5 5c5.5 0 7-6 7-13Z"/><path d="M4 21c1-5 4.5-9 11-12"/></svg><span><strong>Tươi mỗi ngày</strong>Thu hoạch trong 24 giờ</span></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg><span><strong>Nguồn gốc rõ ràng</strong>Chọn lọc nông trại uy tín</span></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v11H3zM14 11h4l3 3v4h-7z"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="17.5" cy="18" r="1.5"/></svg><span><strong>Giao hàng tận tâm</strong>Đóng gói thân thiện môi trường</span></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span><strong>Giá thật, chất lượng thật</strong>An tâm trong từng lựa chọn</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="danh-muc">
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="eyebrow">Từ điều lành giản dị</span><h2>Chọn điều bạn cần</h2></div>
+          <p>Mỗi nguyên liệu đều được chọn lựa kỹ càng, để bạn dễ dàng chuẩn bị những bữa ăn ngon lành cho cả nhà.</p>
+        </div>
+        <div class="category-grid">
+          <a class="category-card" href="#san-pham">
+            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&h=760&q=80" alt="Rau xanh tươi từ nông trại" loading="lazy">
+            <span class="category-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            <span class="category-info"><span>Tươi xanh mỗi ngày</span><strong>Rau củ hữu cơ</strong></span>
+          </a>
+          <a class="category-card" href="#san-pham">
+            <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=600&h=760&q=80" alt="Trái cây chín mọng nhiều màu sắc" loading="lazy">
+            <span class="category-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            <span class="category-info"><span>Ngọt lành tự nhiên</span><strong>Trái cây theo mùa</strong></span>
+          </a>
+          <a class="category-card" href="#san-pham">
+            <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=600&h=760&q=80" alt="Thịt tươi được chuẩn bị cẩn thận" loading="lazy">
+            <span class="category-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            <span class="category-info"><span>Chọn lọc tử tế</span><strong>Thịt &amp; trứng sạch</strong></span>
+          </a>
+          <a class="category-card" href="#san-pham">
+            <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&h=760&q=80" alt="Dầu ăn nguyên chất từ thiên nhiên" loading="lazy">
+            <span class="category-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            <span class="category-info"><span>Đậm đà vị nhà</span><strong>Đồ khô &amp; gia vị</strong></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section products-section" id="san-pham">
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="eyebrow">Được yêu thích nhất</span><h2>Món ngon nhà mình</h2></div>
+          <a class="text-link" href="#dang-ky">Xem tất cả sản phẩm
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+        </div>
+        <div class="product-grid">
+          <article class="product-card" data-description="Rau chân vịt baby non mềm, xanh mướt và giàu dưỡng chất. Được thu hoạch tại nông trại Đà Lạt, phù hợp cho salad, sinh tố xanh hoặc món xào nhẹ.">
+            <div class="product-image"><button class="product-open" type="button" aria-label="Xem chi tiết Rau chân vịt baby"><img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?auto=format&fit=crop&w=650&h=500&q=80" alt="Rau chân vịt xanh tươi" loading="lazy"></button><span class="product-tag">Hữu cơ</span></div>
+            <div class="product-details"><span class="product-kind">Rau xanh · Đà Lạt</span><button class="product-name" type="button">Rau chân vịt baby</button><div class="product-bottom"><span class="price">32.000đ <small>/ 300g</small></span><button class="add-button" type="button" aria-label="Thêm Rau chân vịt baby vào giỏ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+          </article>
+          <article class="product-card" data-description="Táo Envy New Zealand có vị ngọt dịu, giòn mọng nước và hương thơm thanh mát. Tuyển chọn kỹ lưỡng, ngon khi ăn tươi hoặc dùng trong món salad trái cây.">
+            <div class="product-image"><button class="product-open" type="button" aria-label="Xem chi tiết Táo Envy New Zealand"><img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?auto=format&fit=crop&w=650&h=500&q=80" alt="Táo đỏ tươi ngon" loading="lazy"></button><span class="product-tag">Bán chạy</span></div>
+            <div class="product-details"><span class="product-kind">Trái cây · Nhập khẩu</span><button class="product-name" type="button">Táo Envy New Zealand</button><div class="product-bottom"><span class="price">89.000đ <small>/ kg</small></span><button class="add-button" type="button" aria-label="Thêm Táo Envy New Zealand vào giỏ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+          </article>
+          <article class="product-card" data-description="Trứng gà thả vườn được lấy từ đàn gà nuôi theo phương thức tự nhiên tại nông trại Việt Nam. Lòng đỏ thơm béo, thích hợp cho bữa sáng đủ chất và các món ăn gia đình.">
+            <div class="product-image"><button class="product-open" type="button" aria-label="Xem chi tiết Trứng gà thả vườn"><img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?auto=format&fit=crop&w=650&h=500&q=80" alt="Trứng gà ta tươi" loading="lazy"></button><span class="product-tag">Từ nông trại</span></div>
+            <div class="product-details"><span class="product-kind">Thực phẩm sạch · Việt Nam</span><button class="product-name" type="button">Trứng gà thả vườn</button><div class="product-bottom"><span class="price">48.000đ <small>/ 6 quả</small></span><button class="add-button" type="button" aria-label="Thêm Trứng gà thả vườn vào giỏ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+          </article>
+          <article class="product-card" data-description="Khoai lang mật Lâm Đồng có ruột vàng cam, vị ngọt tự nhiên và thơm bùi sau khi nướng hoặc hấp. Một món ăn vặt lành mạnh, cũng có thể dùng làm nguyên liệu cho bữa ăn đủ chất.">
+            <div class="product-image"><button class="product-open" type="button" aria-label="Xem chi tiết Khoai lang mật"><img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=650&h=500&q=80" alt="Khoai lang mật tươi ngon" loading="lazy"></button><span class="product-tag">Mùa này</span></div>
+            <div class="product-details"><span class="product-kind">Củ quả · Lâm Đồng</span><button class="product-name" type="button">Khoai lang mật</button><div class="product-bottom"><span class="price">35.000đ <small>/ kg</small></span><button class="add-button" type="button" aria-label="Thêm Khoai lang mật vào giỏ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+          </article>
+        </div>
+        <div class="center-action"><a class="button button-light" href="#danh-muc">Khám phá thêm sản phẩm</a></div>
+      </div>
+    </section>
+
+    <section class="story-section" id="ve-chung-toi">
+      <div class="container story-grid">
+        <div class="story-image">
+          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&h=900&q=85" alt="Nông trại xanh mướt dưới ánh nắng sớm" loading="lazy">
+          <div class="story-stamp"><span>Gieo trồng<br>bằng yêu thương</span></div>
+        </div>
+        <div class="story-copy">
+          <span class="eyebrow">Câu chuyện Mộc Nhiên</span>
+          <h2>Bắt đầu từ một câu hỏi giản đơn.</h2>
+          <p>“Mình đang ăn gì mỗi ngày?” Từ câu hỏi ấy, Mộc Nhiên ra đời với mong muốn kết nối những người làm nông có tâm với mỗi căn bếp Việt. Chúng tôi tin rằng thực phẩm lành không cần phải xa xôi — chỉ cần được trồng tử tế và trao gửi bằng sự chân thành.</p>
+          <div class="story-points">
+            <div class="story-point"><span class="check">✓</span>Không chất bảo quản</div>
+            <div class="story-point"><span class="check">✓</span>Minh bạch nguồn gốc</div>
+            <div class="story-point"><span class="check">✓</span>Đồng hành cùng nông trại</div>
+            <div class="story-point"><span class="check">✓</span>Thân thiện với môi trường</div>
+          </div>
+          <a class="text-link" href="#dang-ky">Tìm hiểu hành trình của chúng tôi
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-section" aria-label="Khách hàng chia sẻ">
+      <div class="container">
+        <div class="quote-mark" aria-hidden="true">“</div>
+        <div class="stars" aria-label="5 trên 5 sao">★★★★★</div>
+        <blockquote>Từ ngày biết Mộc Nhiên, đi chợ nhẹ nhàng hơn hẳn. Rau rất tươi, trái cây ngọt tự nhiên — cả nhà mình đều thích.</blockquote>
+        <div class="quote-by"><strong>Chị Minh Anh</strong> · Khách hàng thân thiết tại TP. Hồ Chí Minh</div>
+      </div>
+    </section>
+
+    <section class="section" id="dang-ky">
+      <div class="container">
+        <div class="newsletter">
+          <div><span class="eyebrow">Nhận chút điều lành</span><h2>Bếp vui, nhà thêm xanh.</h2><p>Đăng ký để nhận công thức ngon và ưu đãi mới mỗi tuần.</p></div>
+          <div>
+            <form class="newsletter-form" id="newsletterForm">
+              <label for="email" class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Email của bạn</label>
+              <input id="email" name="email" type="email" placeholder="Email của bạn" autocomplete="email" required>
+              <button class="button button-primary" type="submit">Đăng ký</button>
+            </form>
+            <div class="form-message" id="formMessage" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#trang-chu">
+            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4c-7 0-12 2.5-12 8a5 5 0 0 0 5 5c5.5 0 7-6 7-13Z"/><path d="M4 21c1-5 4.5-9 11-12"/></svg></span>
+            <span class="brand-name">Mộc Nhiên<small>Ăn lành · Sống xanh</small></span>
+          </a>
+          <p class="footer-about">Mang thực phẩm tử tế từ nông trại đến căn bếp Việt, để mỗi ngày đều bắt đầu bằng một lựa chọn lành.</p>
+        </div>
+        <div><h3>Khám phá</h3><div class="footer-links"><a href="#danh-muc">Danh mục sản phẩm</a><a href="#san-pham">Sản phẩm nổi bật</a><a href="#ve-chung-toi">Câu chuyện của chúng tôi</a><a href="#dang-ky">Công thức mỗi tuần</a></div></div>
+        <div><h3>Hỗ trợ</h3><div class="footer-links"><a href="#dang-ky">Hướng dẫn đặt hàng</a><a href="#dang-ky">Chính sách giao hàng</a><a href="#dang-ky">Đổi trả &amp; hoàn tiền</a><a href="#dang-ky">Câu hỏi thường gặp</a></div></div>
+        <div><h3>Liên hệ</h3><div class="footer-contact">Gọi đặt hàng: <a href="tel:0935877547">0935 877 547</a><br>Email: hello@mocnhien.vn<br>TP. Hồ Chí Minh, Việt Nam</div></div>
+      </div>
+      <div class="footer-bottom"><span>© 2025 Mộc Nhiên. Gieo điều lành, gặt bình yên.</span><span>Được làm bằng sự tử tế ♡</span></div>
+    </div>
+  </footer>
+
+  <dialog class="product-dialog" id="productDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-content">
+      <button class="dialog-close" id="dialogClose" type="button" aria-label="Đóng chi tiết sản phẩm">×</button>
+      <div class="dialog-image"><img id="dialogImage" src="" alt=""></div>
+      <div class="dialog-info">
+        <span class="eyebrow" id="dialogKind"></span>
+        <h2 id="dialogTitle"></h2>
+        <div class="dialog-price" id="dialogPrice"></div>
+        <p class="dialog-description" id="dialogDescription"></p>
+        <p class="dialog-origin">Cam kết <strong>tươi ngon, nguồn gốc rõ ràng</strong></p>
+        <div class="dialog-actions">
+          <a class="button button-primary" id="dialogCall" href="tel:0935877547">Gọi đặt món này</a>
+          <button class="button button-light" id="dialogAdd" type="button">Thêm vào giỏ</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    const menuToggle = document.querySelector("#menuToggle");
+    const navLinks = document.querySelector("#navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Đóng menu" : "Mở menu");
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Mở menu");
+      });
+    });
+
+    const cartCount = document.querySelector("#cartCount");
+    const productDialog = document.querySelector("#productDialog");
+    const dialogAdd = document.querySelector("#dialogAdd");
+    let selectedProduct = null;
+
+    const addToCart = (button) => {
+      cartCount.textContent = String(Number(cartCount.textContent) + 1);
+      if (button) {
+        button.setAttribute("aria-label", "Đã thêm sản phẩm vào giỏ");
+        button.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg>';
+      }
+    };
+
+    document.querySelectorAll(".product-card").forEach((card) => {
+      const openDetails = () => {
+        const image = card.querySelector(".product-open img");
+        const title = card.querySelector(".product-name").textContent.trim();
+        const price = card.querySelector(".price");
+        const description = card.dataset.description;
+        if (!image || !price || !description) {
+          throw new Error("Thiếu thông tin chi tiết sản phẩm.");
+        }
+
+        selectedProduct = card;
+        document.querySelector("#dialogImage").src = image.src;
+        document.querySelector("#dialogImage").alt = image.alt;
+        document.querySelector("#dialogKind").textContent = card.querySelector(".product-kind").textContent;
+        document.querySelector("#dialogTitle").textContent = title;
+        document.querySelector("#dialogPrice").replaceChildren(...Array.from(price.cloneNode(true).childNodes));
+        document.querySelector("#dialogDescription").textContent = description;
+        document.querySelector("#dialogCall").setAttribute("aria-label", `Gọi đặt ${title} qua số 0935 877 547`);
+        productDialog.showModal();
+      };
+
+      card.querySelector(".product-open").addEventListener("click", openDetails);
+      card.querySelector(".product-name").addEventListener("click", openDetails);
+      card.querySelector(".add-button").addEventListener("click", (event) => {
+        event.stopPropagation();
+        addToCart(event.currentTarget);
+      });
+    });
+
+    document.querySelector("#dialogClose").addEventListener("click", () => productDialog.close());
+    productDialog.addEventListener("click", (event) => {
+      if (event.target === productDialog) productDialog.close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && productDialog.open) productDialog.close();
+    });
+    dialogAdd.addEventListener("click", () => {
+      if (!selectedProduct) return;
+      addToCart(selectedProduct.querySelector(".add-button"));
+      productDialog.close();
+    });
+
+    document.querySelector("#newsletterForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const email = document.querySelector("#email");
+      document.querySelector("#formMessage").textContent = `Cảm ơn bạn! Mộc Nhiên sẽ gửi tin đến ${email.value}.`;
+      email.value = "";
+    });
+  </script>
+</body>
+</html>
